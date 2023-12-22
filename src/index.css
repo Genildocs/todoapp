@@ -4,6 +4,9 @@
 
 @layer base {
   body {
-    @apply font-josefin;
+    @apply font-josefin 
+    bg-[url('assets/images/bg-mobile-light.jpg')] 
+    md:bg-[url('assets/images/bg-desktop-light.jpg')] 
+    bg-cover bg-no-repeat;
   }
 }
