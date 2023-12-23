@@ -4,9 +4,33 @@
 
 @layer base {
   body {
-    @apply font-josefin 
-    bg-[url('assets/images/bg-mobile-light.jpg')] 
-    md:bg-[url('assets/images/bg-desktop-light.jpg')] 
-    bg-cover bg-no-repeat;
+    @apply font-josefin;
+  }
+}
+
+@layer components {
+  .light {
+    @apply bg-[url('assets/images/bg-mobile-light.jpg')] 
+    md:bg-[url('assets/images/bg-desktop-light.jpg')]
+    bg-no-repeat bg-contain;
+  }
+}
+
+@layer components {
+  .dark {
+    @apply bg-black 
+    bg-[url('assets/images/bg-mobile-dark.jpg')] 
+    md:bg-[url('assets/images/bg-desktop-dark.jpg')]
+    bg-no-repeat bg-contain;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply h-5
+    w-5 
+    rounded-full
+    border-solid
+    border-2;
   }
 }
