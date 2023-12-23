@@ -10,6 +10,10 @@ export default {
       colors: {
         bright_blue: ' hsl(220, 98%, 61%)',
       },
+
+      gridTemplateColumns: {
+        md: 'minmax(5rem, 32rem)',
+      },
     },
   },
   plugins: [],

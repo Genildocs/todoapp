@@ -15,7 +15,9 @@ export default function App() {
   }, [theme]);
 
   return (
-    <div className={`${theme} pt-6 pl-6 pr-6 min-h-screen `}>
+    <div
+      className={`${theme} pt-6 pl-6 pr-6 min-h-screen md:grid md:auto-rows-max md:grid-cols-md md:justify-center`}
+    >
       <Nav toggleTheme={toggleTheme} theme={theme} />
       <Todo theme={theme} />
     </div>

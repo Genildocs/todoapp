@@ -8,7 +8,8 @@ import MenuMobile from './MenuMobile';
 export default function Todo({ theme }) {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
-  const themeDark = theme === 'dark' ? 'bg-slate-800 !text-white ' : 'bg-white';
+  const [completed, setCompleted] = useState(false);
+  const themeDark = theme === 'dark' ? 'bg-slate-800 text-white ' : 'bg-white';
 
   const addTodo = (e) => {
     e.preventDefault();
@@ -25,6 +26,14 @@ export default function Todo({ theme }) {
   const deleteTodos = (id) => {
     notesService.deleteTodo(id).then(() => {
       setTodos(todos.filter((todo) => todo.id !== id));
+    });
+  };
+
+  const handleCompleted = (id) => {
+    const todo = todos.find((todo) => todo.id === id);
+    const changedTodo = { ...todo, important: !todo.important };
+    notesService.updateTodo(id, changedTodo).then(() => {
+      setTodos(todos.map((t) => (t.id !== id ? t : changedTodo)));
     });
   };
 
@@ -57,6 +66,7 @@ export default function Todo({ theme }) {
             todos={todos}
             deleteTodos={deleteTodos}
             themeDark={themeDark}
+            handleCompleted={handleCompleted}
           />
         </div>
       ) : (
