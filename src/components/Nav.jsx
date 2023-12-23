@@ -4,7 +4,7 @@ import Sun from '../assets/images/icon-sun.svg';
 
 export default function Nav({ toggleTheme, theme }) {
   return (
-    <nav className="flex justify-between items-center ">
+    <nav className="flex justify-between items-center md:justify-around">
       <h1 className=" text-3xl font-bold uppercase tracking-[10px]  text-white">
         Todo
       </h1>

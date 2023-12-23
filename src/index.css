@@ -5,6 +5,7 @@
 @layer base {
   body {
     @apply font-josefin;
+    background: #fafafa;
   }
 }
 
@@ -14,23 +15,35 @@
     md:bg-[url('assets/images/bg-desktop-light.jpg')]
     bg-no-repeat bg-contain;
   }
-}
 
-@layer components {
   .dark {
     @apply bg-black 
     bg-[url('assets/images/bg-mobile-dark.jpg')] 
     md:bg-[url('assets/images/bg-desktop-dark.jpg')]
     bg-no-repeat bg-contain;
   }
-}
 
-@layer components {
   .btn {
     @apply h-5
     w-5 
     rounded-full
     border-solid
     border-2;
+  }
+
+  .todos {
+    @apply flex
+    justify-between
+    items-center
+    shadow-lg
+    bg-white
+    p-2
+    gap-3;
+    border-bottom: 1px solid rgb(204, 201, 201);
+  }
+
+  .todos:first-child {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
   }
 }
