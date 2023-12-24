@@ -1,5 +1,5 @@
-import React from 'react';
-import IconCross from '../assets/images/icon-cross.svg';
+import React from "react";
+import IconCross from "../assets/images/icon-cross.svg";
 
 export default function TodoDisplay({
   todos,
@@ -18,7 +18,7 @@ export default function TodoDisplay({
                 className="flex items-center btn"
               ></button>
             </div>
-            <p className={`${todo.important ? 'underline' : ''}`}>
+            <p className={`${todo.important ? "line-through" : ""}`}>
               {todo.content}
             </p>
             <button onClick={() => deleteTodos(todo.id)}>
