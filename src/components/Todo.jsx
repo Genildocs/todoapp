@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import IconCheck from '../assets/images/icon-check.svg';
 import { motion } from 'framer-motion';
 import TodoDisplay from './TodoDisplay';
 import notesService from '../service/notesService';
@@ -8,7 +7,6 @@ import MenuMobile from './MenuMobile';
 export default function Todo({ theme }) {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
-  const [completed, setCompleted] = useState(false);
   const themeDark = theme === 'dark' ? 'bg-slate-800 text-white ' : 'bg-white';
 
   const addTodo = (e) => {
@@ -34,6 +32,42 @@ export default function Todo({ theme }) {
     const changedTodo = { ...todo, important: !todo.important };
     notesService.updateTodo(id, changedTodo).then(() => {
       setTodos(todos.map((t) => (t.id !== id ? t : changedTodo)));
+    });
+  };
+
+  const hadleActive = () => {
+    notesService.getAll().then((allNotes) => {
+      console.log(allNotes);
+      const active = allNotes.filter((todo) => todo.important === false);
+      if (active.length !== 0) setTodos(active);
+    });
+  };
+
+  const hadleCompleted = () => {
+    notesService.getAll().then((allNotes) => {
+      const completed = allNotes.filter((todo) => todo.important === true);
+      if (completed.length !== 0) setTodos(completed);
+    });
+  };
+
+  const handleAll = () => {
+    notesService.getAll().then((allNotes) => {
+      setTodos(allNotes);
+    });
+  };
+
+  const clearCompleted = () => {
+    const todoIDs = todos.map((todo) => {
+      return todo.id;
+    });
+
+    todoIDs.forEach((id) => {
+      notesService.updateTodo(id, { important: false }).then(() => {
+        const updateTodos = todos.map((todo) =>
+          todo.id === id ? { ...todo, important: false } : todo
+        );
+        setTodos(updateTodos);
+      });
     });
   };
 
@@ -78,9 +112,27 @@ export default function Todo({ theme }) {
       )}
       <div className={`${themeDark} todos border-none rounded-b-lg`}>
         <p>{todos.length} items left</p>
-        <button>Clear Completed</button>
+        <div className="hidden md:flex gap-3">
+          <button onClick={handleAll} className="hover:text-bright_blue">
+            All
+          </button>
+          <button onClick={hadleActive} className="hover:text-bright_blue">
+            Active
+          </button>
+          <button onClick={hadleCompleted} className="hover:text-bright_blue">
+            Completed
+          </button>
+        </div>
+        <button onClick={clearCompleted} className="hover:text-bright_blue">
+          Clear Completed
+        </button>
       </div>
-      <MenuMobile themeDark={themeDark} />
+      <MenuMobile
+        themeDark={themeDark}
+        hadleActive={hadleActive}
+        hadleCompleted={hadleCompleted}
+        handleAll={handleAll}
+      />
     </div>
   );
 }

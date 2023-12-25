@@ -1,20 +1,24 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 
-export default function MenuMobile({ themeDark }) {
+export default function MenuMobile({
+  themeDark,
+  hadleActive,
+  hadleCompleted,
+  handleAll,
+}) {
   return (
     <div
-      className={`${themeDark}  flex justify-around items-center rounded-lg shadow-lg  mt-8 p-3 gap-3`}
+      className={`${themeDark} md:hidden  flex justify-around items-center rounded-lg shadow-lg  mt-8 p-3 gap-3`}
     >
-      <motion.button initial={{}} whileHover={{ color: '#3a7bfd', scale: 1.1 }}>
+      <button onClick={handleAll} className="hover:text-bright_blue">
         All
-      </motion.button>
-      <motion.button whileHover={{ color: '#3a7bfd', scale: 1.1 }}>
+      </button>
+      <button onClick={hadleActive} className="hover:text-bright_blue">
         Active
-      </motion.button>
-      <motion.button whileHover={{ color: '#3a7bfd', scale: 1.1 }}>
+      </button>
+      <button onClick={hadleCompleted} className="hover:text-bright_blue">
         Completed
-      </motion.button>
+      </button>
     </div>
   );
 }
