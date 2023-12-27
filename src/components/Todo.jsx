@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import TodoDisplay from "./TodoDisplay";
-import notesService from "../service/notesService";
-import MenuMobile from "./MenuMobile";
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import TodoDisplay from './TodoDisplay';
+import notesService from '../service/notesService';
+import MenuMobile from './MenuMobile';
 
 export default function Todo({ theme }) {
   const [todos, setTodos] = useState([]);
-  const [newTodo, setNewTodo] = useState("");
-  const themeDark = theme === "dark" ? "bg-slate-800 text-white " : "bg-white";
-  console.log(newTodo);
+  const [newTodo, setNewTodo] = useState('');
+  const themeDark = theme === 'dark' ? 'bg-slate-800 text-white ' : 'bg-white';
+
   const addTodo = (e) => {
     e.preventDefault();
     const newTodos = {
       content: newTodo,
       important: false,
     };
-    if (newTodo === "" || newTodo.length < 5) return;
+    if (newTodo === '' || newTodo.length < 5) return;
     notesService.create(newTodos).then((returnedNote) => {
       setTodos([...todos, returnedNote]);
-      setNewTodo("");
+      setNewTodo('');
     });
   };
 
@@ -36,14 +36,14 @@ export default function Todo({ theme }) {
     });
   };
 
-  const hadleActive = () => {
+  const handleActive = () => {
     notesService.getAll().then((allNotes) => {
       const active = allNotes.filter((todo) => todo.important === false);
       if (active.length !== 0) setTodos(active);
     });
   };
 
-  const hadleCompleted = () => {
+  const completed = () => {
     notesService.getAll().then((allNotes) => {
       const completed = allNotes.filter((todo) => todo.important === true);
       if (completed.length !== 0) setTodos(completed);
@@ -84,7 +84,10 @@ export default function Todo({ theme }) {
         className={`${themeDark} flex items-center rounded-lg shadow-lg  mt-8 p-3 gap-3`}
       >
         <div>
-          <button type="submit" className="flex items-center btn"></button>
+          <button
+            type="submit"
+            className="flex items-center btn hover:bg-gradient-to-r from-blue-400 to-purple-500"
+          ></button>
         </div>
         <input
           type="text"
@@ -105,34 +108,38 @@ export default function Todo({ theme }) {
         </div>
       ) : (
         <motion.h1
-          className={`${themeDark} flex justify-center items-center mt-20`}
+          className={`${themeDark} flex justify-center items-center rounded-md p-8 mt-20`}
         >
           Loading all...
         </motion.h1>
       )}
-      <div className={`${themeDark} todos border-none rounded-b-lg`}>
-        <p>{todos.length} items left</p>
-        <div className="hidden md:flex gap-3">
-          <button onClick={handleAll} className="hover:text-bright_blue">
-            All
-          </button>
-          <button onClick={hadleActive} className="hover:text-bright_blue">
-            Active
-          </button>
-          <button onClick={hadleCompleted} className="hover:text-bright_blue">
-            Completed
+      {todos.length !== 0 && (
+        <div className={`${themeDark} todos border-none rounded-b-lg`}>
+          <p>{todos.length} items left</p>
+          <div className="hidden md:flex gap-3">
+            <button onClick={handleAll} className="hover:text-bright_blue">
+              All
+            </button>
+            <button onClick={handleActive} className="hover:text-bright_blue">
+              Active
+            </button>
+            <button onClick={completed} className="hover:text-bright_blue">
+              Completed
+            </button>
+          </div>
+          <button onClick={clearCompleted} className="hover:text-bright_blue">
+            Clear Completed
           </button>
         </div>
-        <button onClick={clearCompleted} className="hover:text-bright_blue">
-          Clear Completed
-        </button>
-      </div>
-      <MenuMobile
-        themeDark={themeDark}
-        hadleActive={hadleActive}
-        hadleCompleted={hadleCompleted}
-        handleAll={handleAll}
-      />
+      )}
+      {todos.length !== 0 && (
+        <MenuMobile
+          themeDark={themeDark}
+          handleActive={handleActive}
+          completed={completed}
+          handleAll={handleAll}
+        />
+      )}
     </div>
   );
 }

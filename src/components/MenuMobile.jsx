@@ -2,8 +2,8 @@ import React from 'react';
 
 export default function MenuMobile({
   themeDark,
-  hadleActive,
-  hadleCompleted,
+  handleActive,
+  completed,
   handleAll,
 }) {
   return (
@@ -13,10 +13,10 @@ export default function MenuMobile({
       <button onClick={handleAll} className="hover:text-bright_blue">
         All
       </button>
-      <button onClick={hadleActive} className="hover:text-bright_blue">
+      <button onClick={handleActive} className="hover:text-bright_blue">
         Active
       </button>
-      <button onClick={hadleCompleted} className="hover:text-bright_blue">
+      <button onClick={completed} className="hover:text-bright_blue">
         Completed
       </button>
     </div>

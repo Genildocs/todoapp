@@ -9,39 +9,39 @@ export default function TodoDisplay({
   handleCompleted,
 }) {
   return (
-    <div>
-      <section className={`mt-8`}>
-        {todos.map((todo) => (
-          <div key={todo.id} className={`${themeDark} todos`}>
-            <div>
-              <button
-                onClick={() => handleCompleted(todo.id)}
-                className={`${
-                  todo.important
-                    ? 'bg-gradient-to-r from-blue-400 to-purple-500'
-                    : ''
-                } flex items-center justify-center btn `}
-              >
-                <img
-                  src={IconCheck}
-                  alt="icon check"
-                  className={`${todo.important ? 'block' : 'hidden'}`}
-                />
-              </button>
-            </div>
-            <p
+    <div className="mt-8">
+      {todos.map((todo) => (
+        <section
+          key={todo.id}
+          onClick={() => handleCompleted(todo.id)}
+          className={`${themeDark} cursor-pointer todos hover:bg-gradient-to-r from-blue-400 to-purple-500`}
+        >
+          <div>
+            <button
+              onClick={() => handleCompleted(todo.id)}
               className={`${
-                todo.important ? 'line-through text-gray-500' : ''
-              }`}
+                todo.important
+                  ? 'bg-gradient-to-r from-blue-400 to-purple-500'
+                  : ''
+              } flex items-center justify-center btn hover:bg-gradient-to-r from-blue-400 to-purple-500 `}
             >
-              {todo.content}
-            </p>
-            <button onClick={() => deleteTodos(todo.id)}>
-              <img src={IconCross} alt="icon cross" />
+              <img
+                src={IconCheck}
+                alt="icon check"
+                className={`${todo.important ? 'block' : 'hidden'}`}
+              />
             </button>
           </div>
-        ))}
-      </section>
+          <p
+            className={`${todo.important ? 'line-through text-gray-500' : ''}`}
+          >
+            {todo.content}
+          </p>
+          <button onClick={() => deleteTodos(todo.id)}>
+            <img src={IconCross} alt="icon cross" />
+          </button>
+        </section>
+      ))}
     </div>
   );
 }
