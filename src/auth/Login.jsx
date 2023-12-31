@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import loginService from '../service/loginService';
 
-export default function Login() {
+export default function Login({ setlogin }) {
   const [errorMessage, setErrorMessage] = useState(null);
   const [username, serUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -13,6 +13,7 @@ export default function Login() {
     try {
       const user = await loginService.login({ username, password });
       setUser(user);
+      setlogin(user);
       serUsername('');
       setPassword('');
     } catch (exception) {
@@ -54,6 +55,7 @@ export default function Login() {
       >
         Login
       </button>
+      {user === null && <p className=" text-red-600">{errorMessage}</p>}
     </form>
   );
 }

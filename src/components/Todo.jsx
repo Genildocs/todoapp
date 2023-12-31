@@ -4,7 +4,7 @@ import TodoDisplay from './TodoDisplay';
 import notesService from '../service/notesService';
 import MenuMobile from './MenuMobile';
 
-export default function Todo({ theme }) {
+export default function Todo({ theme, login }) {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
   const themeDark = theme === 'dark' ? 'bg-slate-800 text-white ' : 'bg-white';
