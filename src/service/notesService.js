@@ -4,7 +4,7 @@ const baseUrl = "https://notesback-bzcn.onrender.com/api/notes";
 let token = null;
 
 const setToken = (newToken) => {
-  token = `bearer ${newToken}`;
+  token = `Bearer ${newToken}`;
 };
 
 const getAll = () => {
