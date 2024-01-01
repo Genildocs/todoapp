@@ -79,24 +79,26 @@ export default function Todo({ theme, user }) {
 
   return (
     <div>
-      <form
-        onSubmit={addTodo}
-        className={`${themeDark} flex items-center rounded-lg shadow-lg  mt-8 p-3 gap-3`}
-      >
-        <div>
-          <button
-            type="submit"
-            className="flex items-center btn hover:bg-gradient-to-r from-blue-400 to-purple-500"
-          ></button>
-        </div>
-        <input
-          type="text"
-          value={newTodo}
-          placeholder="Create a new todo..."
-          onChange={(e) => setNewTodo(e.target.value)}
-          className={`w-full bg-transparent  outline-none`}
-        />
-      </form>
+      {user !== null && (
+        <form
+          onSubmit={addTodo}
+          className={`${themeDark} flex items-center rounded-lg shadow-lg  mt-8 p-3 gap-3`}
+        >
+          <div>
+            <button
+              type="submit"
+              className="flex items-center btn hover:bg-gradient-to-r from-blue-400 to-purple-500"
+            ></button>
+          </div>
+          <input
+            type="text"
+            value={newTodo}
+            placeholder="Create a new todo..."
+            onChange={(e) => setNewTodo(e.target.value)}
+            className={`w-full bg-transparent  outline-none`}
+          />
+        </form>
+      )}
       {todos.length !== 0 ? (
         <div>
           {user !== null && (
