@@ -22,6 +22,9 @@ export default function App() {
 
     try {
       const user = await loginService.login({ username, password });
+
+      window.localStorage.setItem("loggedNoteappUser", JSON.stringify(user));
+
       notesService.setToken(user.token);
       setUser(user);
       setUsername("");
@@ -37,6 +40,16 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem("theme", theme);
   }, [theme]);
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem("loggedNoteappUser");
+
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON);
+      setUser(user);
+      notesService.setToken(user.token);
+    }
+  }, []);
 
   return (
     <div

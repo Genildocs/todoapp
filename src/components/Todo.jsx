@@ -111,11 +111,11 @@ export default function Todo({ theme, user }) {
           )}
         </div>
       ) : (
-        <motion.h1
+        <div
           className={`${themeDark} flex justify-center items-center rounded-md p-8 mt-20`}
         >
           Loading all...
-        </motion.h1>
+        </div>
       )}
       {todos.length !== 0 && (
         <div className={`${themeDark} rounded-b-lg`}>
