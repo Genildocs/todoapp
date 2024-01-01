@@ -1,28 +1,58 @@
-import React, { useState, useEffect } from 'react';
-import Nav from './components/Nav';
-import Todo from './components/Todo';
-import Login from './auth/Login';
+import React, { useState, useEffect } from "react";
+import notesService from "./service/notesService";
+import loginService from "./service/loginService";
+import Nav from "./components/Nav";
+import Todo from "./components/Todo";
+import Login from "./auth/Login";
 
 export default function App() {
-  const storedTheme = localStorage.getItem('theme');
-  const [theme, setTheme] = useState(storedTheme || 'light');
-  const [login, setLogin] = useState(null);
+  const storedTheme = localStorage.getItem("theme");
+  const [theme, setTheme] = useState(storedTheme || "light");
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null);
 
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const user = await loginService.login({ username, password });
+      notesService.setToken(user.token);
+      setUser(user);
+      setUsername("");
+      setPassword("");
+    } catch (exception) {
+      setErrorMessage("Wrong credentials");
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+    }
   };
 
   useEffect(() => {
-    localStorage.setItem('theme', theme);
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
   return (
     <div
       className={`${theme} relative pt-6 pl-6 pr-6 min-h-screen md:grid md:auto-rows-max md:grid-cols-md md:justify-center`}
     >
-      <Login login={setLogin} />
-      <Nav toggleTheme={toggleTheme} theme={theme} login={login} />
-      <Todo theme={theme} />
+      <Login
+        handleLogin={handleLogin}
+        user={user}
+        username={username}
+        setUsername={setUsername}
+        password={password}
+        setPassword={setPassword}
+        errorMessage={errorMessage}
+      />
+      <Nav toggleTheme={toggleTheme} theme={theme} />
+      <Todo theme={theme} user={user} />
     </div>
   );
 }

@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import TodoDisplay from './TodoDisplay';
-import notesService from '../service/notesService';
-import MenuMobile from './MenuMobile';
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import TodoDisplay from "./TodoDisplay";
+import notesService from "../service/notesService";
+import MenuMobile from "./MenuMobile";
 
-export default function Todo({ theme, login }) {
+export default function Todo({ theme, user }) {
   const [todos, setTodos] = useState([]);
-  const [newTodo, setNewTodo] = useState('');
-  const themeDark = theme === 'dark' ? 'bg-slate-800 text-white ' : 'bg-white';
+  const [newTodo, setNewTodo] = useState("");
+  const themeDark = theme === "dark" ? "bg-slate-800 text-white " : "bg-white";
 
   const addTodo = (e) => {
     e.preventDefault();
@@ -15,10 +15,10 @@ export default function Todo({ theme, login }) {
       content: newTodo,
       important: false,
     };
-    if (newTodo === '' || newTodo.length < 5) return;
+    if (newTodo === "" || newTodo.length < 5) return;
     notesService.create(newTodos).then((returnedNote) => {
       setTodos([...todos, returnedNote]);
-      setNewTodo('');
+      setNewTodo("");
     });
   };
 
@@ -99,12 +99,14 @@ export default function Todo({ theme, login }) {
       </form>
       {todos.length !== 0 ? (
         <div>
-          <TodoDisplay
-            todos={todos}
-            deleteTodos={deleteTodos}
-            themeDark={themeDark}
-            handleCompleted={handleCompleted}
-          />
+          {user !== null && (
+            <TodoDisplay
+              todos={todos}
+              deleteTodos={deleteTodos}
+              themeDark={themeDark}
+              handleCompleted={handleCompleted}
+            />
+          )}
         </div>
       ) : (
         <motion.h1
@@ -114,31 +116,45 @@ export default function Todo({ theme, login }) {
         </motion.h1>
       )}
       {todos.length !== 0 && (
-        <div className={`${themeDark} todos border-none rounded-b-lg`}>
-          <p>{todos.length} items left</p>
-          <div className="hidden md:flex gap-3">
-            <button onClick={handleAll} className="hover:text-bright_blue">
-              All
-            </button>
-            <button onClick={handleActive} className="hover:text-bright_blue">
-              Active
-            </button>
-            <button onClick={completed} className="hover:text-bright_blue">
-              Completed
-            </button>
-          </div>
-          <button onClick={clearCompleted} className="hover:text-bright_blue">
-            Clear Completed
-          </button>
+        <div className={`${themeDark} rounded-b-lg`}>
+          {user !== null && (
+            <div className={`${themeDark} todos border-none rounded-b-lg`}>
+              <p>{todos.length} items left</p>
+              <div className="hidden md:flex gap-3">
+                <button onClick={handleAll} className="hover:text-bright_blue">
+                  All
+                </button>
+                <button
+                  onClick={handleActive}
+                  className="hover:text-bright_blue"
+                >
+                  Active
+                </button>
+                <button onClick={completed} className="hover:text-bright_blue">
+                  Completed
+                </button>
+              </div>
+              <button
+                onClick={clearCompleted}
+                className="hover:text-bright_blue"
+              >
+                Clear Completed
+              </button>
+            </div>
+          )}
         </div>
       )}
       {todos.length !== 0 && (
-        <MenuMobile
-          themeDark={themeDark}
-          handleActive={handleActive}
-          completed={completed}
-          handleAll={handleAll}
-        />
+        <div>
+          {user !== null && (
+            <MenuMobile
+              themeDark={themeDark}
+              handleActive={handleActive}
+              completed={completed}
+              handleAll={handleAll}
+            />
+          )}
+        </div>
       )}
     </div>
   );

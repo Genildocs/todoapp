@@ -1,6 +1,6 @@
-import React from 'react';
-import IconCross from '../assets/images/icon-cross.svg';
-import IconCheck from '../assets/images/icon-check.svg';
+import React from "react";
+import IconCross from "../assets/images/icon-cross.svg";
+import IconCheck from "../assets/images/icon-check.svg";
 
 export default function TodoDisplay({
   todos,
@@ -21,19 +21,19 @@ export default function TodoDisplay({
               onClick={() => handleCompleted(todo.id)}
               className={`${
                 todo.important
-                  ? 'bg-gradient-to-r from-blue-400 to-purple-500'
-                  : ''
+                  ? "bg-gradient-to-r from-blue-400 to-purple-500"
+                  : ""
               } flex items-center justify-center btn hover:bg-gradient-to-r from-blue-400 to-purple-500 `}
             >
               <img
                 src={IconCheck}
                 alt="icon check"
-                className={`${todo.important ? 'block' : 'hidden'}`}
+                className={`${todo.important ? "block" : "hidden"}`}
               />
             </button>
           </div>
           <p
-            className={`${todo.important ? 'line-through text-gray-500' : ''}`}
+            className={`${todo.important ? "line-through text-gray-500" : ""}`}
           >
             {todo.content}
           </p>

@@ -1,61 +1,77 @@
-import React, { useState } from 'react';
-import loginService from '../service/loginService';
+import React, { useState } from "react";
 
-export default function Login({ setlogin }) {
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [username, serUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [user, setUser] = useState(null);
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
-    try {
-      const user = await loginService.login({ username, password });
-      setUser(user);
-      setlogin(user);
-      serUsername('');
-      setPassword('');
-    } catch (exception) {
-      setErrorMessage('Wrong credentials');
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 5000);
-    }
-  };
+export default function Login({
+  handleLogin,
+  user,
+  username,
+  setUsername,
+  password,
+  setPassword,
+  errorMessage,
+}) {
+  const [visible, setVisible] = useState(false);
 
   return (
-    <form
-      onSubmit={handleLogin}
-      className="flex flex-col items-start gap-2 md:absolute relative ml-3 mt-5"
-    >
-      <div>
-        <label>Login: </label>
-        <input
-          className="block outline-none"
-          type="text"
-          value={username}
-          name="Username"
-          onChange={({ target }) => serUsername(target.value)}
-        />
-      </div>
-      <div>
-        <label>Password: </label>
-        <input
-          className="block outline-none"
-          type="password"
-          value={password}
-          name="Password"
-          onChange={({ target }) => setPassword(target.value)}
-        />
-      </div>
-      <button
-        type="submit"
-        className="bg-white py-2 px-10 mb-3 md:mb-0 hover:bg-gradient-to-r from-blue-400 to-purple-500"
-      >
-        Login
-      </button>
-      {user === null && <p className=" text-red-600">{errorMessage}</p>}
-    </form>
+    <>
+      {user === null ? (
+        <form
+          onSubmit={handleLogin}
+          className="flex flex-col items-start gap-2 md:absolute relative ml-3 mt-5"
+        >
+          {visible && (
+            <div>
+              <div>
+                <label>Username: </label>
+                <input
+                  className="block outline-none"
+                  type="text"
+                  value={username}
+                  name="Username"
+                  onChange={({ target }) => setUsername(target.value)}
+                />
+              </div>
+              <div>
+                <label>Password: </label>
+                <input
+                  className="block outline-none"
+                  type="password"
+                  value={password}
+                  name="Password"
+                  onChange={({ target }) => setPassword(target.value)}
+                />
+                {user === null && (
+                  <p className=" font-bold text-red-600">{errorMessage}</p>
+                )}
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  className="bg-white py-1 px-5 mt-3 md:mb-0 hover:bg-gradient-to-r from-blue-400 to-purple-500"
+                >
+                  Login
+                </button>
+              </div>
+            </div>
+          )}
+          {!visible && (
+            <div>
+              <button
+                onClick={() => setVisible(!visible)}
+                className="bg-white py-1 px-5 mb-3 md:mb-0 hover:bg-gradient-to-r from-blue-400 to-purple-500"
+              >
+                Login
+              </button>
+            </div>
+          )}
+        </form>
+      ) : (
+        <div className="flex flex-col items-start gap-2 md:absolute relative ml-3 mt-5">
+          <p className="text-white">User logged: {user.username}</p>
+          <button className="bg-white py-1 px-5 mb-3 md:mb-0 hover:bg-gradient-to-r from-blue-400 to-purple-500">
+            Logout
+          </button>
+        </div>
+      )}
+    </>
   );
 }
