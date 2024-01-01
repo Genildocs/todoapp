@@ -111,10 +111,14 @@ export default function Todo({ theme, user }) {
           )}
         </div>
       ) : (
-        <div
-          className={`${themeDark} flex justify-center items-center rounded-md p-8 mt-20`}
-        >
-          Loading all...
+        <div>
+          {user !== null && (
+            <div
+              className={`${themeDark} flex justify-center items-center rounded-md p-8 mt-20`}
+            >
+              <p>Loading all...</p>
+            </div>
+          )}
         </div>
       )}
       {todos.length !== 0 && (

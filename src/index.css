@@ -17,7 +17,7 @@
   }
 
   .dark {
-    @apply bg-black 
+    @apply bg-slate-900
     bg-[url('assets/images/bg-mobile-dark.jpg')] 
     md:bg-[url('assets/images/bg-desktop-dark.jpg')]
     bg-no-repeat bg-contain;
