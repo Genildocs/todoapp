@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 export default function Login({
   handleLogin,
@@ -12,7 +12,7 @@ export default function Login({
   const [visible, setVisible] = useState(false);
 
   const handleLogout = () => {
-    window.localStorage.removeItem("loggedNoteappUser");
+    window.localStorage.removeItem('loggedNoteappUser');
     window.location.reload();
     setUser(null);
   };
@@ -22,7 +22,7 @@ export default function Login({
       {user === null ? (
         <form
           onSubmit={handleLogin}
-          className="flex flex-col items-start gap-2 md:absolute relative ml-3 mt-5"
+          className="flex flex-col items-start gap-2 md:absolute relative md:ml-3 mt-3"
         >
           {visible && (
             <div>

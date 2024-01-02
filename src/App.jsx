@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import notesService from "./service/notesService";
-import loginService from "./service/loginService";
-import Nav from "./components/Nav";
-import Todo from "./components/Todo";
-import Login from "./auth/Login";
+import React, { useState, useEffect } from 'react';
+import notesService from './service/notesService';
+import loginService from './service/loginService';
+import Nav from './components/Nav';
+import Todo from './components/Todo';
+import Login from './auth/Login';
 
 export default function App() {
-  const storedTheme = localStorage.getItem("theme");
-  const [theme, setTheme] = useState(storedTheme || "light");
+  const storedTheme = localStorage.getItem('theme');
+  const [theme, setTheme] = useState(storedTheme || 'light');
   const [errorMessage, setErrorMessage] = useState(null);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
 
   const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+    setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
   const handleLogin = async (e) => {
@@ -23,14 +23,14 @@ export default function App() {
     try {
       const user = await loginService.login({ username, password });
 
-      window.localStorage.setItem("loggedNoteappUser", JSON.stringify(user));
+      window.localStorage.setItem('loggedNoteappUser', JSON.stringify(user));
 
       notesService.setToken(user.token);
       setUser(user);
-      setUsername("");
-      setPassword("");
+      setUsername('');
+      setPassword('');
     } catch (exception) {
-      setErrorMessage("Wrong credentials");
+      setErrorMessage('Wrong credentials');
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
@@ -38,11 +38,11 @@ export default function App() {
   };
 
   useEffect(() => {
-    localStorage.setItem("theme", theme);
+    localStorage.setItem('theme', theme);
   }, [theme]);
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem("loggedNoteappUser");
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser');
 
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
@@ -55,6 +55,7 @@ export default function App() {
     <div
       className={`${theme} relative pt-6 pl-6 pr-6 min-h-screen md:grid md:auto-rows-max md:grid-cols-md md:justify-center`}
     >
+      <Nav toggleTheme={toggleTheme} theme={theme} />
       <Login
         handleLogin={handleLogin}
         user={user}
@@ -64,7 +65,7 @@ export default function App() {
         setPassword={setPassword}
         errorMessage={errorMessage}
       />
-      <Nav toggleTheme={toggleTheme} theme={theme} />
+
       <Todo theme={theme} user={user} />
     </div>
   );
