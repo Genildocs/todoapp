@@ -46,4 +46,20 @@
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
   }
+
+  @keyframes loading {
+    from {
+      transform: translateX(-10px);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .load {
+    animation: 1.5s ease-in-out infinite alternate loading;
+  }
 }
