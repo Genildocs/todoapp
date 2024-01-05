@@ -49,17 +49,29 @@
 
   @keyframes loading {
     from {
-      transform: translateX(-10px);
-      opacity: 0;
+      transform: rotate(0) scale(1.2);
     }
 
     to {
-      transform: translateX(0);
-      opacity: 1;
+      transform: rotate(1turn) scale(1.2);
     }
   }
 
   .load {
-    animation: 1.5s ease-in-out infinite alternate loading;
+    border-radius: 50%;
+    padding: 1rem;
+    border: 2px solid rgb(224, 221, 221);
+    position: relative;
+  }
+
+  .load::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 3px solid rgb(14, 13, 13);
+    border-radius: 50%;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    animation: 0.8s linear infinite alternate loading;
   }
 }
