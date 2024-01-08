@@ -13,6 +13,16 @@ export default function Message({ theme, user }) {
             login: <stron className="font-semibold underline">demo</stron> and
             password: <stron className="font-semibold underline">demo</stron>.
           </p>
+          <a
+            className="mt-4 underline block"
+            href="https://github.com/Genildocs/todoapp/tree/main"
+            rel="noreferrer"
+            target="_blank"
+          >
+            <p>
+              Link repo gitHub: https://github.com/Genildocs/todoapp/tree/main
+            </p>
+          </a>
         </MessageContainer>
       )}
     </>
