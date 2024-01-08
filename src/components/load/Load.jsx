@@ -32,7 +32,7 @@ export default function Load() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{
           duration: 1.5,
-          ease: 'linear',
+          ease: 'linear ',
           repeat: Infinity,
           delay: 0.3,
         }}
