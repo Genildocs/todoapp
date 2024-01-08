@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Load from '../components/Load';
 
 export default function Login({
   handleLogin,
@@ -10,11 +11,17 @@ export default function Login({
   errorMessage,
 }) {
   const [visible, setVisible] = useState(false);
-
+  const [load, setLoad] = useState(false);
+  console.log(user, username, load);
   const handleLogout = () => {
     window.localStorage.removeItem('loggedNoteappUser');
     window.location.reload();
-    setUser(null);
+  };
+
+  const loading = () => {
+    if (user === null && username !== '' && password !== '') {
+      setLoad(!load);
+    }
   };
 
   return (
@@ -53,8 +60,9 @@ export default function Login({
                 <button
                   type="submit"
                   className="bg-white py-1 px-5 mt-3 md:mb-0 hover:bg-gradient-to-r from-blue-400 to-purple-500"
+                  onClick={loading}
                 >
-                  Login
+                  {!load ? <div>Login</div> : <Load />}
                 </button>
               </div>
             </div>

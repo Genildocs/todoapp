@@ -1,5 +1,5 @@
-import axios from "axios";
-const baseUrl = "https://notesback-bzcn.onrender.com/api/notes";
+import axios from 'axios';
+const baseUrl = 'https://notesback-bzcn.onrender.com/api/notes';
 
 let token = null;
 

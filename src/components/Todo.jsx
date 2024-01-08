@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import TodoDisplay from "./TodoDisplay";
-import notesService from "../service/notesService";
-import MenuMobile from "./MenuMobile";
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import TodoDisplay from './TodoDisplay';
+import notesService from '../service/notesService';
+import MenuMobile from './MenuMobile';
 
 export default function Todo({ theme, user }) {
   const [todos, setTodos] = useState([]);
-  const [newTodo, setNewTodo] = useState("");
-  const themeDark = theme === "dark" ? "bg-slate-800 text-white " : "bg-white";
+  const [newTodo, setNewTodo] = useState('');
+  const themeDark = theme === 'dark' ? 'bg-slate-800 text-white ' : 'bg-white';
 
   const addTodo = (e) => {
     e.preventDefault();
@@ -15,10 +15,10 @@ export default function Todo({ theme, user }) {
       content: newTodo,
       important: false,
     };
-    if (newTodo === "" || newTodo.length < 5) return;
+    if (newTodo === '' || newTodo.length < 5) return;
     notesService.create(newTodos).then((returnedNote) => {
       setTodos([...todos, returnedNote]);
-      setNewTodo("");
+      setNewTodo('');
     });
   };
 
