@@ -12,7 +12,7 @@ export default function Login({
   load,
 }) {
   const [visible, setVisible] = useState(false);
-  console.log(user, username, load);
+
   const handleLogout = () => {
     window.localStorage.removeItem('loggedNoteappUser');
     window.location.reload();

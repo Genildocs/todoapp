@@ -114,9 +114,12 @@ export default function Todo({ theme, user }) {
         <div>
           {user !== null && (
             <div
-              className={`${themeDark}  flex justify-center items-center rounded-md p-8 mt-20`}
+              className={`${themeDark} shadow-lg flex flex-col justify-center items-center rounded-md p-8 mt-20`}
             >
               <div className="load"></div>
+              <p className="mt-4 text-center">
+                Either we are loading or you need to insert a note...
+              </p>
             </div>
           )}
         </div>
