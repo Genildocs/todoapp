@@ -9,19 +9,13 @@ export default function Login({
   password,
   setPassword,
   errorMessage,
+  load,
 }) {
   const [visible, setVisible] = useState(false);
-  const [load, setLoad] = useState(false);
   console.log(user, username, load);
   const handleLogout = () => {
     window.localStorage.removeItem('loggedNoteappUser');
     window.location.reload();
-  };
-
-  const loading = () => {
-    if (user === null && username !== '' && password !== '') {
-      setLoad(!load);
-    }
   };
 
   return (
@@ -60,9 +54,8 @@ export default function Login({
                 <button
                   type="submit"
                   className="bg-white py-1 px-5 mt-3 md:mb-0 min-h-8 hover:bg-gradient-to-r from-blue-400 to-purple-500"
-                  onClick={loading}
                 >
-                  {!load ? <div>Login</div> : <Load />}
+                  {load ? <Load /> : <div>Login</div>}
                 </button>
               </div>
             </div>

@@ -12,6 +12,7 @@ export default function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
+  const [load, setLoad] = useState(false);
 
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
@@ -21,8 +22,9 @@ export default function App() {
     e.preventDefault();
 
     try {
+      setLoad(true);
       const user = await loginService.login({ username, password });
-
+      setLoad(false);
       window.localStorage.setItem('loggedNoteappUser', JSON.stringify(user));
 
       notesService.setToken(user.token);
@@ -30,6 +32,7 @@ export default function App() {
       setUsername('');
       setPassword('');
     } catch (exception) {
+      setLoad(false);
       setErrorMessage('Wrong credentials');
       setTimeout(() => {
         setErrorMessage(null);
@@ -64,6 +67,7 @@ export default function App() {
         password={password}
         setPassword={setPassword}
         errorMessage={errorMessage}
+        load={load}
       />
       <Todo theme={theme} user={user} />
     </div>
