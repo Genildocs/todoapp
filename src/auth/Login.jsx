@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Load from '../components/Load';
+import Load from '../components/load/Load';
 
 export default function Login({
   handleLogin,
@@ -59,7 +59,7 @@ export default function Login({
               <div>
                 <button
                   type="submit"
-                  className="bg-white py-1 px-5 mt-3 md:mb-0 hover:bg-gradient-to-r from-blue-400 to-purple-500"
+                  className="bg-white py-1 px-5 mt-3 md:mb-0 min-h-8 hover:bg-gradient-to-r from-blue-400 to-purple-500"
                   onClick={loading}
                 >
                   {!load ? <div>Login</div> : <Load />}
